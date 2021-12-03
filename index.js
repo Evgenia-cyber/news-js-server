@@ -26,7 +26,7 @@ app.get('/*', (req, res) => {
     .then((response) => {
       res.status(200).send(response.data);
     })
-    .cath((error) => {
+    .catch((error) => {
       res.send(error.message);
     });
 });
