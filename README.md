@@ -1,0 +1,1 @@
+Server for news-JS
