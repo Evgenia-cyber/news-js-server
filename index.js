@@ -7,14 +7,24 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
+app.use(express.json());
+
 const PORT = process.env.PORT || 3000;
-const API_SERVICE_URL = 'https://newsapi.org/v2';
+const API_SERVICE_URL = 'https://newsapi.org/v2/';
+
+app.use('/', (req, res, next) => {
+  if (req.originalUrl === '/') {
+    res.send('Service is running!');
+    return;
+  }
+  next();
+});
 
 app.get('/*', (req, res) => {
   axios
     .get(`${API_SERVICE_URL}/${req.url}`)
     .then((response) => {
-      res.send(response.data);
+      res.status(200).send(response.data);
     })
     .cath((error) => {
       res.send(error.message);
